@@ -1,0 +1,54 @@
+
+To evaluate how misinformation propagates in our simulated network, we record a set of outcome metrics at each round $t$. These measures capture both the \emph{extent} of diffusion (how far messages travel) and the \emph{composition} of diffusion (how much of what spreads is false), as well as the evolution of reputational incentives.
+
+\subsection{Reach}
+
+We define the \textit{reach} of message $m_t$ as the fraction of agents who received the message through any chain of forwards:
+\[
+R_t = \frac{|\{ i : \text{agent } i \text{ received } m_t \}|}{N}.
+\]
+This metric captures how far a message travels across the network.
+
+\subsection{Forwarding Rate}
+
+Among those who received the message, we compute the \textit{forwarding rate}:
+\[
+F_t = \frac{\sum_{i: i \text{ received } m_t} a_{it}}{|\{ i : \text{received } m_t \}|},
+\]
+where $a_{it} \in \{0,1\}$ denotes agent $i$'s forwarding decision.  
+This measure reflects the behavioral response to the message in round $t$.
+
+\subsection{Misinformation Contamination}
+
+To track the spread of false messages, we compute the \textit{false-forward rate} when $\theta_t = 0$:
+\[
+FF_t = \frac{\sum_{i: i \text{ received } m_t} a_{it} \cdot \mathbf{1}\{\theta_t = 0\}}
+{|\{ i : \text{received } m_t \}|}.
+\]
+
+\subsection{False Reach (Exposure to False Messages)}
+
+In addition to false forwarding, we also track exposure: when a message is false ($\theta_t=0$), its \textit{false reach} is the share of the network that receives it:
+\[
+FR_t = \mathbf{1}\{\theta_t = 0\}\cdot R_t.
+\]
+We also report the absolute number of agents exposed to false content in round $t$:
+\[
+FR^{\text{count}}_t = \mathbf{1}\{\theta_t = 0\}\cdot |\{ i : \text{agent } i \text{ received } m_t \}|.
+\]
+
+\subsection{Reputation}
+
+We track the average reputation in the network after each round:
+\[
+\bar{R}(t) = \frac{1}{N}\sum_{i=1}^{N} R_i^t.
+\]
+This summarizes how repeated exposure to true and false messages updates the reputational environment in which agents make forwarding decisions.
+
+\subsection{Aggregation Across Rounds and Monte Carlo Runs}
+
+For each metric $X_t \in \{R_t, F_t, FF_t, FR_t, FR^{\text{count}}_t, \bar{R}(t)\}$, we report averages across rounds within a run,
+\[
+\bar{X} = \frac{1}{T}\sum_{t=1}^{T} X_t,
+\]
+and then aggregate across Monte Carlo repetitions (means, standard deviations, and confidence intervals) when conducting comparative statics in the Results section.

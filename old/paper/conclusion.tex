@@ -1,0 +1,22 @@
+\subsection{Conclusion}
+
+This paper studies misinformation diffusion in a WhatsApp/Telegram-like environment where agents decide whether to forward messages based on ideological proximity and reputational incentives. The key mechanism is an endogenous reputational filter: agents with higher reputation face stronger expected losses from forwarding false content and therefore become more selective over time, while low-reputation agents (and especially bots) remain comparatively willing to share.
+
+Our simulation results highlight a central selection effect in platform-level fact-checking. When we increase the truth-revelation probability (our abstraction of more frequent or more effective fact-checking), high-reputation agents become more cautious and reduce their forwarding activity. Because these agents typically occupy influential network positions, this lowers overall reach and reduces false-message exposure in absolute terms (false reach in counts). At the same time, misinformation can become more concentrated among the messages that still circulate, since diffusion is increasingly carried by less selective agents and bots. In other words, stronger fact-checking can simultaneously reduce the level of false exposure while increasing the proportion of misinformation among remaining transmissions.
+
+Finally, varying the number of bots shows that bots are a first-order determinant of false-message spread. Because bots forward largely regardless of truthfulness, reducing their prevalence mechanically strengthens the decline in false reach and improves percentage-based misinformation outcomes. This reinforces a practical policy implication: platform interventions that limit automated or indiscriminate forwarding can complement fact-checking by weakening the main channel through which false content continues to propagate when selective agents disengage.
+
+\subsection{Model Limitations}
+
+Several simplifying assumptions constrain the realism of the simulation:
+
+\begin{itemize}
+    \item \textbf{Ideological bias is one-dimensional}, $b_i \in [-1,1]$, while real preferences may be multi-dimensional.
+    \item \textbf{Reputation is scalar and fully observable}, whereas in real encrypted networks reputation is noisy, context-dependent, and often implicit.
+    \item \textbf{Influencer and regular-user types are discrete}, though real online influence is continuous and endogenous.
+    \item \textbf{The network is static during a simulation window}, while real WhatsApp/Telegram groups evolve (members join/leave; admins add channels).
+    \item \textbf{Message truthfulness is exogenous}, although real misinformation environments include strategic manipulation and coordinated campaigns.
+    \item \textbf{Simulated DGP}: we rely on stylized random graphs and not on microdata from actual encrypted apps.
+\end{itemize}
+
+

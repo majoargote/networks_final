@@ -1,0 +1,5 @@
+network_type,n_nodes,mean_degree,avg_clustering,avg_path_length,diameter,degree_assortativity
+erdos_renyi,100,11.62,0.114,2.1097,4,0.0865
+barabasi_albert,100,11.28,0.21,2.1069,4,-0.0998
+sbm,100,11.34,0.1722,2.1687,4,-0.0025
+facebook,100,4.82,0.5365,3.5711,8,-0.2543

@@ -1,0 +1,98 @@
+\subsection{Baseline network and simulation settings}
+
+Unless otherwise stated, all simulations in the Results section use the same network and baseline simulation settings:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\hline
+\textbf{Quantity} & \textbf{Value} \\
+\hline
+Network file & \texttt{data/facebook\_community\_100nodes\_seed42.pkl} \\
+Number of agents & 100 (implied by the network) \\
+Number of rounds & 250 \\
+Initial senders per round & 10 \\
+Message bias parameters & $(\alpha,\beta)=(0.5,0.5)$ \\
+Baseline probability message is true & $q=\Pr(\truth=1)=0.6$ \\
+\hline
+\end{tabular}
+\caption{Baseline network and simulation configuration (from \texttt{code/config/config\_sim\_general.json}).}
+\label{tab:baseline_sim_config}
+\end{table}
+
+\subsection{Agent-type parameterization}
+
+Agent parameters are loaded from the JSON configuration files below. The regular-agent count is set to \texttt{null} (i.e., ``fill the remaining agents'' after allocating influencers and bots).
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+\hline
+\textbf{Parameter} & \textbf{Regular} & \textbf{Influencer} \\
+\hline
+Count & \texttt{null} & 8 \\
+Bias distribution $(\alpha,\beta)$ & (2, 2) & (0.5, 0.5) \\
+Initial reputation mean $\mu$ & 0.0 & 1.0 \\
+Initial reputation variance $\sigma^2$ & 1.0 & 1.0 \\
+Bias strength $\omega$ & 0.5 & 1.0 \\
+Reward strength $\gamma_0$ & 0.5 & 1.0 \\
+Penalty scale $\delta_0$ & 0.5 & 0.2 \\
+Forwarding cost $k$ & 0.1 & 0.1 \\
+\hline
+\end{tabular}
+\caption{Regular and influencer configuration (from \texttt{code/config/config\_sim\_agent.json} and \texttt{code/config/config\_sim\_influencer.json}).}
+\label{tab:agent_influencer_params}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\hline
+\textbf{Parameter} & \textbf{Bot} \\
+\hline
+Count (baseline) & 8 \\
+Bias distribution $(\alpha,\beta)$ & (0.5, 0.5) \\
+Initial reputation mean $\mu$ & 0.0 \\
+Initial reputation variance $\sigma^2$ & 1.0 \\
+Bias strength $\omega$ & 1.0 \\
+Reward strength $\gamma_0$ & 0.0 \\
+Penalty scale $\delta_0$ & 0.0 \\
+Forwarding cost $k$ & 0.0 \\
+\hline
+\end{tabular}
+\caption{Bot configuration (from \texttt{code/config/config\_sim\_bot.json}). In the bot-variation experiment, only the count is changed; other bot parameters remain fixed.}
+\label{tab:bot_params}
+\end{table}
+
+\subsection{Reputation mechanism used in the simulations}
+
+Forwarding yields a constant reputational gain for true messages and a reputation-dependent penalty for false messages. In the implementation used for the Results section:
+\[
+\gamma = \gamma_0 \quad\text{(constant)},
+\qquad
+\delta(\R) = \delta_0 \cdot \sigma(\R)\cdot(1+\sigma(\R)),
+\qquad
+\sigma(\R)=\frac{1}{1+e^{-\R}}.
+\]
+This specification makes the penalty larger for high-reputation agents, strengthening endogenous selectivity.
+
+\subsection{Experimental grids and reproducibility}
+
+All batch experiments use \texttt{num-runs = 30} per parameter value with base seed 42 (each run uses \texttt{seed = 42 + run\_id}).
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\hline
+\textbf{Experiment} & \textbf{Values tested} \\
+\hline
+Truth revelation probability & \{0.0, 0.1, 0.2, 0.5, 0.8, 1.0\} \\
+Number of bots (Telegram-like) & \{8, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100\} \\
+\hline
+\end{tabular}
+\caption{Parameter grids used in the batch simulations. Telegram-like corresponds to low truth-revelation probability and WhatsApp-like to high truth-revelation probability.}
+\label{tab:experiment_grids}
+\end{table}
+
+
+
